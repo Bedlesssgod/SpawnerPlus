@@ -1,0 +1,4 @@
+name: SpawnerPlus
+version: '${project.version}'
+main: com.bedless.spawnerplus.mainthread.SpawnerPlus
+api-version: 1.18
