@@ -14,4 +14,22 @@ public enum SpawnerType {
             default -> ItemPresets.getZombieSpawner();
         };
     }
+
+    public static String getSpawnerName(Essence essence) {
+        return switch (essence.name()) {
+            case "SKELETON" -> "Skeleton Spawner";
+            case "SPIDER" -> "Spider Spawner";
+            case "ENDERMAN" -> "Enderman Spawner";
+            default -> "Zombie Spawner";
+        };
+    }
+
+    public static String getLocalizedName(SpawnerType spawnerType){
+        return switch (spawnerType.name()) {
+            case "SKELETON" -> "SKELETON_SPAWNER";
+            case "SPIDER" -> "SPIDER_SPAWNER";
+            case "ENDERMAN" -> "ENDERMAN_SPAWNER";
+            default -> "ZOMBIE_SPAWNER";
+        };
+    }
 }

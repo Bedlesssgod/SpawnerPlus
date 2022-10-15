@@ -4,12 +4,17 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandCompletion;
 import co.aikar.commands.annotation.Subcommand;
+import com.bedless.spawnerplus.config.FormattedItemJSON;
 import com.bedless.spawnerplus.gui.SpawnerRecipeGUI;
+import com.bedless.spawnerplus.item.ItemBuilder;
 import com.bedless.spawnerplus.item.ItemPresets;
+import com.bedless.spawnerplus.mainthread.Config;
 import com.bedless.spawnerplus.mainthread.SpawnerPlus;
+import com.bedless.spawnerplus.utils.Essence;
 import com.bedless.spawnerplus.utils.MainUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.json.simple.JSONObject;
 
 @CommandAlias("SP|SpawnersPlus|SpawnerPlus")
 public class MainCommand extends BaseCommand {
@@ -51,5 +56,23 @@ public class MainCommand extends BaseCommand {
     @Subcommand("giveAllEssence")
     public void giveAllEssenceCommand(Player player){
         player.getInventory().addItem(ItemPresets.getAllItemStacks());
+    }
+
+    @Subcommand("test")
+    public void printAllConfig(Player player){
+        player.getInventory().addItem(ItemBuilder.buildEssenceFromConfig(
+                FormattedItemJSON.getSkeletonEssenceName(),
+                Essence.SKELETON,
+                FormattedItemJSON.getSkeletonEssenceDesc1(),
+                FormattedItemJSON.getSkeletonEssenceDesc2(),
+                FormattedItemJSON.getSkeletonEssenceDesc3(),
+                FormattedItemJSON.getSkeletonEssenceDesc4(),
+                FormattedItemJSON.getSkeletonEssenceDesc5(),
+                FormattedItemJSON.getSkeletonEssenceDesc6(),
+                FormattedItemJSON.getSkeletonEssenceDesc7(),
+                FormattedItemJSON.getSkeletonEssenceDesc8(),
+                FormattedItemJSON.getSkeletonEssenceDesc9(),
+                FormattedItemJSON.getSkeletonEssenceDesc10()
+        ));
     }
 }

@@ -1,6 +1,7 @@
 package com.bedless.spawnerplus.item;
 
 import com.bedless.spawnerplus.utils.Essence;
+import com.bedless.spawnerplus.utils.SpawnerType;
 import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -70,12 +71,37 @@ public class ItemBuilder {
         ItemStack item = new ItemStack(Essence.getEssenceItem(essence));
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§5" + Essence.getEssenceName(essence));
-        meta.setLocalizedName(Essence.getEssenceLocalName(essence));
+        meta.setLocalizedName(Essence.getLocalizedName(essence));
         meta.setLore(Arrays.asList(description).toString().toLowerCase().contains("filler") ? null : Arrays.asList(description));
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         meta.addEnchant(Enchantment.DURABILITY, 3, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack buildSpawnerFromConfig(String name, SpawnerType spawnerType, String... desc){
+        ItemStack item = new ItemStack(Material.SPAWNER);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        meta.setLocalizedName(SpawnerType.getLocalizedName(spawnerType));
+        meta.setLore(Arrays.asList(desc));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+
+    public static ItemStack buildEssenceFromConfig(String name, Essence essence, String... desc){
+        ItemStack item = new ItemStack(Material.SPAWNER);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        meta.setLocalizedName(Essence.getLocalizedName(essence));
+        meta.setLore(Arrays.asList(desc));
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         item.setItemMeta(meta);
         return item;
     }

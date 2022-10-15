@@ -1,19 +1,15 @@
 package com.bedless.spawnerplus.utils;
 
+import com.bedless.spawnerplus.item.utils.EmptyLine;
 import com.bedless.spawnerplus.mainthread.SpawnerPlus;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Content;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.UUID;
 
 public class MainUtils {
@@ -49,7 +45,7 @@ public class MainUtils {
                 Bukkit.getPlayer(uuid).sendMessage(message);
             }
         } catch (NullPointerException ex) {
-            //Nothing
+           //Nothing
         }
     }
 
@@ -59,6 +55,14 @@ public class MainUtils {
 
     public static String openingRecipe(String recipeName) {
         return SpawnerPlus.getInstance().getOpenRecipeBase().replace("${RECIPE_NAME}$", recipeName);
+    }
+
+    public static String translatePlaceHolders(String toTranslate, boolean spawner){
+        String i = toTranslate.replaceAll("%%EMPTY_LINE%%", new EmptyLine().getLine());
+        String ii = i.replaceAll("%%NULL_LINE%%", "");
+        String iii = ii.replaceAll("%%ITEM_RARITY_COLOR%%", spawner ? Rarity.getRarityColor(Rarity.MYTHIC) : Rarity.getRarityColor(Rarity.LEGENDARY));
+        String iiii = iii.replaceAll("%%ITEM_RARITY_STRING%%", spawner ? Rarity.getRarityInfo(Rarity.MYTHIC) : Rarity.getRarityInfo(Rarity.LEGENDARY));
+        return ChatColor.translateAlternateColorCodes('%', iiii);
     }
 
 }

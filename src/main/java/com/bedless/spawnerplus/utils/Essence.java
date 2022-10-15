@@ -25,7 +25,7 @@ public enum Essence {
         };
     }
 
-    public static String getEssenceLocalName(Essence essence) {
+    public static String getLocalizedName(Essence essence) {
         return switch (essence.name()) {
             case "SKELETON" -> "SKELETON_ESSENCE";
             case "SPIDER" -> "SPIDER_ESSENCE";
