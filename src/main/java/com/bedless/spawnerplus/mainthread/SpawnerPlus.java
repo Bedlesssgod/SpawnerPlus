@@ -6,13 +6,11 @@ import com.bedless.spawnerplus.config.FormattedItemJSON;
 import com.bedless.spawnerplus.events.MainEventHandler;
 import com.bedless.spawnerplus.gui.SpawnerRecipeGUI;
 import com.bedless.spawnerplus.gui.utils.SPInventoryHolder;
-import com.bedless.spawnerplus.utils.MainUtils;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
