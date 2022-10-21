@@ -8,6 +8,7 @@ import com.bedless.spawnerplus.config.FormattedItemJSON;
 import com.bedless.spawnerplus.gui.SpawnerRecipeGUI;
 import com.bedless.spawnerplus.item.ItemBuilder;
 import com.bedless.spawnerplus.item.ItemPresets;
+import com.bedless.spawnerplus.item.utils.DescriptionLine;
 import com.bedless.spawnerplus.mainthread.Config;
 import com.bedless.spawnerplus.mainthread.SpawnerPlus;
 import com.bedless.spawnerplus.utils.Essence;
@@ -35,12 +36,11 @@ public class MainCommand extends BaseCommand {
             SpawnerPlus.getInstance().getInDebug().add(player.getUniqueId());
             debugChecked = true;
         }
-        if (debugChecked) {
-            MainUtils.sendMessageToAllDebug("Player-Name: " + player.getDisplayName());
-            MainUtils.sendMessageToAllDebug("Current-Status: " + SpawnerPlus.getInstance().getInDebug().contains(player.getUniqueId()));
-            player.sendMessage(SpawnerPlus.getInstance().getInDebug().contains(player.getUniqueId()) ? "Enabled Debug Mode" : "Disabled Debug Mode");
-            debugChecked = false;
-        }
+
+        MainUtils.sendMessageToAllDebug("Player-Name: " + player.getDisplayName());
+        MainUtils.sendMessageToAllDebug("Current-Status: " + SpawnerPlus.getInstance().getInDebug().contains(player.getUniqueId()));
+        player.sendMessage(SpawnerPlus.getInstance().getInDebug().contains(player.getUniqueId()) ? "Enabled Debug Mode" : "Disabled Debug Mode");
+        debugChecked = false;
     }
 
     @Subcommand("recipe")
@@ -60,19 +60,22 @@ public class MainCommand extends BaseCommand {
 
     @Subcommand("test")
     public void printAllConfig(Player player){
+
         player.getInventory().addItem(ItemBuilder.buildEssenceFromConfig(
-                FormattedItemJSON.getSkeletonEssenceName(),
+                FormattedItemJSON.skeletonEssenceName,
                 Essence.SKELETON,
-                FormattedItemJSON.getSkeletonEssenceDesc1(),
-                FormattedItemJSON.getSkeletonEssenceDesc2(),
-                FormattedItemJSON.getSkeletonEssenceDesc3(),
-                FormattedItemJSON.getSkeletonEssenceDesc4(),
-                FormattedItemJSON.getSkeletonEssenceDesc5(),
-                FormattedItemJSON.getSkeletonEssenceDesc6(),
-                FormattedItemJSON.getSkeletonEssenceDesc7(),
-                FormattedItemJSON.getSkeletonEssenceDesc8(),
-                FormattedItemJSON.getSkeletonEssenceDesc9(),
-                FormattedItemJSON.getSkeletonEssenceDesc10()
+                FormattedItemJSON.skeletonEssenceDesc1.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc1.line(),
+                FormattedItemJSON.skeletonEssenceDesc2.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc2.line(),
+                FormattedItemJSON.skeletonEssenceDesc3.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc3.line(),
+                FormattedItemJSON.skeletonEssenceDesc4.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc4.line(),
+                FormattedItemJSON.skeletonEssenceDesc5.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc5.line(),
+                FormattedItemJSON.skeletonEssenceDesc6.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc6.line(),
+                FormattedItemJSON.skeletonEssenceDesc7.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc7.line(),
+                FormattedItemJSON.skeletonEssenceDesc8.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc8.line(),
+                FormattedItemJSON.skeletonEssenceDesc9.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc9.line(),
+                FormattedItemJSON.skeletonEssenceDesc10.isNoLine() ? null : FormattedItemJSON.skeletonEssenceDesc10.line()
         ));
+
+
     }
 }

@@ -1,18 +1,14 @@
 package com.bedless.spawnerplus.config;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
+import com.google.gson.*;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import org.json.simple.parser.ParseException;
 
 public class ItemJSON {
 
@@ -21,8 +17,8 @@ public class ItemJSON {
 
     private JSONObject generalInfo;
     private JSONObject masterSkeleton;
-    private JSONObject skeletonEssence;
-    private JSONObject skeletonSpawner;
+    private JSONArray skeletonEssence;
+    private JSONArray skeletonSpawner;
 
     private JSONParser parser = new JSONParser();
     private HashMap<String, Object> defaults = new HashMap<String, Object>();
@@ -50,38 +46,38 @@ public class ItemJSON {
             json = (JSONObject) parser.parse(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 
             generalInfo = new JSONObject();
-            generalInfo.put("Info", "PlaceHolders: %%ITEM_RARITY_COLOR%% | %%EMPTY_LINE%% | %%ITEM_RARITY_STRING%% | %%NULL_LINE%%");
+            generalInfo.put("Info", "PlaceHolders: -ITEM_RARITY_COLOR- | -EMPTY_LINE- | -ITEM_RARITY_STRING- | -NO_LINE-");
             defaults.put("Information", generalInfo);
 
             masterSkeleton = new JSONObject();
 
-            skeletonSpawner = new JSONObject();
-            /*Spawner*/
-            skeletonSpawner.put("Name", "Skeleton Spawner");
-            skeletonSpawner.put("Desc1", "Skely");
-            skeletonSpawner.put("Desc2", "Skely");
-            skeletonSpawner.put("Desc3", "Skely");
-            skeletonSpawner.put("Desc4", "Skely");
-            skeletonSpawner.put("Desc5", "Skely");
-            skeletonSpawner.put("Desc6", "Skely");
-            skeletonSpawner.put("Desc7", "Skely");
-            skeletonSpawner.put("Desc8", "Skely");
-            skeletonSpawner.put("Desc9", "Skely");
-            skeletonSpawner.put("Desc10", "Skely");
+            //Spawner--
+            skeletonSpawner = new JSONArray();
+            skeletonSpawner.add(0,"Name: Skeleton Spawner");
+            skeletonSpawner.add(1, "DESCRIPTION: 1");
+            skeletonSpawner.add(2, "DESCRIPTION: 2");
+            skeletonSpawner.add(3, "DESCRIPTION: 3");
+            skeletonSpawner.add(4, "DESCRIPTION: 4");
+            skeletonSpawner.add(5, "DESCRIPTION: 5");
+            skeletonSpawner.add(6, "DESCRIPTION: 6");
+            skeletonSpawner.add(7, "DESCRIPTION: 7");
+            skeletonSpawner.add(8, "DESCRIPTION: 8");
+            skeletonSpawner.add(9, "DESCRIPTION: 9");
+            skeletonSpawner.add(10, "DESCRIPTION: 10");
+            //Essence
+            skeletonEssence = new JSONArray();
+            skeletonEssence.add(0,"Name: -ITEM_RARITY_COLOR- Skeleton Essence");
+            skeletonEssence.add(1,"DESCRIPTION: %7Extremely Rare Item, 1");
+            skeletonEssence.add(2,"DESCRIPTION: %7Obtained by Killing 2");
+            skeletonEssence.add(3,"DESCRIPTION: %7Skeletons 3");
+            skeletonEssence.add(4,"DESCRIPTION: -EMPTY_LINE- 4");
+            skeletonEssence.add(5,"DESCRIPTION: %5Right-Click to View 5");
+            skeletonEssence.add(6,"DESCRIPTION: %5Recipes! 6");
+            skeletonEssence.add(7,"DESCRIPTION: -EMPTY_LINE- 7");
+            skeletonEssence.add(8,"DESCRIPTION: -ITEM_RARITY_STRING- 8");
+            skeletonEssence.add(9,"DESCRIPTION: -NO_LINE- 9");
+            skeletonEssence.add(10,"DESCRIPTION: -NO_LINE- 10");
 
-            /*Essence*/
-            skeletonEssence = new JSONObject();
-            skeletonEssence.put("Name", "%%ITEM_RARITY_COLOR%% Skeleton Essence");
-            skeletonEssence.put("Desc1", "%7Extremly Rare Item,");
-            skeletonEssence.put("Desc2", "%7Obtained by Killing");
-            skeletonEssence.put("Desc3", "%7Skeletons");
-            skeletonEssence.put("Desc4", "%%EMPTY_LINE%%");
-            skeletonEssence.put("Desc5", "%5Right-Click to View");
-            skeletonEssence.put("Desc6", "%5Recipes!");
-            skeletonEssence.put("Desc7", "%%EMPTY_LINE%%");
-            skeletonEssence.put("Desc8", "%%ITEM_RARITY_STRING%%");
-            skeletonEssence.put("Desc9", "%%NULL_LINE%%");
-            skeletonEssence.put("Desc10", "%%NULL_LINE%%");
 
             masterSkeleton.put("Essence", skeletonEssence);
             masterSkeleton.put("Spawner", skeletonSpawner);
@@ -98,24 +94,21 @@ public class ItemJSON {
 
             for (String s : defaults.keySet()) {
                 Object o = defaults.get(s);
-                if (o instanceof String) {
-                    toSave.put(s, getString(s));
-                } else if (o instanceof Double) {
-                    toSave.put(s, getDouble(s));
-                } else if (o instanceof Integer) {
-                    toSave.put(s, getInteger(s));
-                } else if (o instanceof JSONObject) {
-                    toSave.put(s, getObject(s));
-                } else if (o instanceof JSONArray) {
-                    toSave.put(s, getArray(s));
-                }
+                Bukkit.getConsoleSender().sendMessage(s + " " + o);
+                if (o instanceof String) toSave.put(s, getString(s));
+                if (o instanceof Double) toSave.put(s, getDouble(s));
+                if (o instanceof Integer) toSave.put(s, getInteger(s));
+                if (o instanceof JSONObject) toSave.put(s, getObject(s));
+                if (o instanceof JSONArray) toSave.put(s, getArray(s));
             }
 
-            TreeMap<String, Object> treeMap = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
+
+            TreeMap<String, Object> treeMap = new TreeMap<String, Object>();
             treeMap.putAll(toSave);
 
             Gson g = new GsonBuilder().setPrettyPrinting().create();
             String prettyJsonString = g.toJson(treeMap);
+
 
             FileWriter fw = new FileWriter(file);
             fw.write(prettyJsonString);
@@ -123,17 +116,18 @@ public class ItemJSON {
             fw.close();
 
             return true;
+
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
     }
 
-    public JSONObject getSkeletonEssence(){
+    public JSONArray getSkeletonEssence(){
         return skeletonEssence;
     }
 
-    public JSONObject getSkeletonSpawner(){
+    public JSONArray getSkeletonSpawner(){
         return skeletonSpawner;
     }
 

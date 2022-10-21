@@ -1,6 +1,6 @@
 package com.bedless.spawnerplus.utils;
 
-import com.bedless.spawnerplus.item.utils.EmptyLine;
+import com.bedless.spawnerplus.item.utils.DescriptionLine;
 import com.bedless.spawnerplus.mainthread.SpawnerPlus;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 
 public class MainUtils {
@@ -58,11 +59,16 @@ public class MainUtils {
     }
 
     public static String translatePlaceHolders(String toTranslate, boolean spawner){
-        String i = toTranslate.replaceAll("%%EMPTY_LINE%%", new EmptyLine().getLine());
-        String ii = i.replaceAll("%%NULL_LINE%%", "");
-        String iii = ii.replaceAll("%%ITEM_RARITY_COLOR%%", spawner ? Rarity.getRarityColor(Rarity.MYTHIC) : Rarity.getRarityColor(Rarity.LEGENDARY));
-        String iiii = iii.replaceAll("%%ITEM_RARITY_STRING%%", spawner ? Rarity.getRarityInfo(Rarity.MYTHIC) : Rarity.getRarityInfo(Rarity.LEGENDARY));
-        return ChatColor.translateAlternateColorCodes('%', iiii);
+        String i = toTranslate.replaceAll("-EMPTY_LINE-", "§b");
+        String ii = i.replaceAll("-ITEM_RARITY_COLOR- ", spawner ? Rarity.getRarityColor(Rarity.MYTHIC) : Rarity.getRarityColor(Rarity.LEGENDARY));
+        String iii = ii.replaceAll("-ITEM_RARITY_STRING-", spawner ? Rarity.getRarityInfo(Rarity.MYTHIC) : Rarity.getRarityInfo(Rarity.LEGENDARY));
+        return ChatColor.translateAlternateColorCodes('%', iii);
     }
 
+    public static DescriptionLine translateDescription(String toTranslate, boolean spawner){
+        String i = toTranslate.replaceAll("-EMPTY_LINE-", "§b");
+        String ii = i.replaceAll("-ITEM_RARITY_COLOR- ", spawner ? Rarity.getRarityColor(Rarity.MYTHIC) : Rarity.getRarityColor(Rarity.LEGENDARY));
+        String iii = ii.replaceAll("-ITEM_RARITY_STRING-", spawner ? Rarity.getRarityInfo(Rarity.MYTHIC) : Rarity.getRarityInfo(Rarity.LEGENDARY));
+        return new DescriptionLine(ChatColor.translateAlternateColorCodes('%', iii));
+    }
 }
